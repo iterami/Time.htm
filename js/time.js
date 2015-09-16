@@ -21,12 +21,19 @@ function timestamp_to_date(){
     update_date_inputs(converted);
 }
 
+function two_digits(time){
+    if(time < 10){
+        return '0' + time;
+    }
+    return time;
+}
+
 function update_date_inputs(date){
-    document.getElementById('day').value = date.getDate();
-    document.getElementById('hour').value = date.getHours();
-    document.getElementById('minute').value = date.getMinutes();
-    document.getElementById('month').value = date.getMonth() + 1;
-    document.getElementById('second').value = date.getSeconds();
+    document.getElementById('day').value = two_digits(date.getDate());
+    document.getElementById('hour').value = two_digits(date.getHours());
+    document.getElementById('minute').value = two_digits(date.getMinutes());
+    document.getElementById('month').value = two_digits(date.getMonth() + 1);
+    document.getElementById('second').value = two_digits(date.getSeconds());
     document.getElementById('year').value = date.getFullYear();
 }
 
