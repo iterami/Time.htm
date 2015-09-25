@@ -13,7 +13,11 @@ function date_to_timestamp(){
 }
 
 function second(){
-    document.getElementById('timestamp').innerHTML = Math.floor(new Date().getTime() / 1000);
+    if(!update_second){
+        return;
+    }
+
+    document.getElementById('timestamp').value = Math.floor(new Date().getTime() / 1000);
 }
 
 function timestamp_to_date(){
@@ -36,6 +40,16 @@ function update_date_inputs(date){
     document.getElementById('second').value = two_digits(date.getSeconds());
     document.getElementById('year').value = date.getFullYear();
 }
+
+var update_second = true;
+
+document.getElementById('timestamp').onblur = function(e){
+    update_second = true;
+};
+
+document.getElementById('timestamp').onfocus = function(e){
+    update_second = false;
+};
 
 window.onload = function(e){
     var now = new Date();
