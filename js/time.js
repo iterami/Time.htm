@@ -12,6 +12,10 @@ function date_to_timestamp(){
     document.getElementById('timestamp-input').value = Math.floor(converted.getTime() / 1000);
 }
 
+function now(){
+    document.getElementById('timestamp-input').value = document.getElementById('timestamp').value;
+}
+
 function second(){
     if(!update_second){
         return;
