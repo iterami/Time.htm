@@ -6,7 +6,11 @@
 
 <input id=timestamp>
 <hr>
-<input id=year>-<input id=month>-<input id=day> <input id=hour>:<input id=minute>:<input id=second><br>
+<input id=year>-<input id=month>-<input id=day>
+  <input id=hour>:<input id=minute>:<input id=second>
+  <select id=timezone>
+    <option value=0>UTC</option>
+  </select><br>
 <input onclick=date_to_timestamp() type=button value="↑Date to Timestamp↓">
   <input onclick=timestamp_to_date() type=button value="↓Timestamp to Date↑"><br>
 <input id=timestamp-input><input onclick=now() type=button value=Now>

@@ -12,7 +12,8 @@ input{
     color: #aaa;
     text-align: center;
 }
-input[type=button]{
+input[type=button],
+select{
     cursor: pointer;
 }
 #day,

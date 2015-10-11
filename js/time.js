@@ -2,12 +2,14 @@
 
 function date_to_timestamp(){
     var converted = new Date(
-      parseInt(document.getElementById('year').value),
-      parseInt(document.getElementById('month').value) - 1,
-      parseInt(document.getElementById('day').value),
-      parseInt(document.getElementById('hour').value),
-      parseInt(document.getElementById('minute').value),
-      parseInt(document.getElementById('second').value)
+      Date.UTC(
+        parseInt(document.getElementById('year').value),
+        parseInt(document.getElementById('month').value) - 1,
+        parseInt(document.getElementById('day').value),
+        parseInt(document.getElementById('hour').value),
+        parseInt(document.getElementById('minute').value),
+        parseInt(document.getElementById('second').value)
+      )
     );
     document.getElementById('timestamp-input').value = Math.floor(converted.getTime() / 1000);
 }
@@ -37,12 +39,12 @@ function two_digits(time){
 }
 
 function update_date_inputs(date){
-    document.getElementById('day').value = two_digits(date.getDate());
-    document.getElementById('hour').value = two_digits(date.getHours());
-    document.getElementById('minute').value = two_digits(date.getMinutes());
-    document.getElementById('month').value = two_digits(date.getMonth() + 1);
-    document.getElementById('second').value = two_digits(date.getSeconds());
-    document.getElementById('year').value = date.getFullYear();
+    document.getElementById('day').value = two_digits(date.getUTCDate());
+    document.getElementById('hour').value = two_digits(date.getUTCHours());
+    document.getElementById('minute').value = two_digits(date.getUTCMinutes());
+    document.getElementById('month').value = two_digits(date.getUTCMonth() + 1);
+    document.getElementById('second').value = two_digits(date.getUTCSeconds());
+    document.getElementById('year').value = date.getUTCFullYear();
 }
 
 var update_second = true;
