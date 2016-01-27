@@ -1,5 +1,17 @@
 'use strict';
 
+function create_date(timestamp){
+    var date = new Date(timestamp * 1000);
+    return {
+      'day': two_digits(date.getUTCDate()),
+      'hour': two_digits(date.getUTCHours()),
+      'minute': two_digits(date.getUTCMinutes()),
+      'month': two_digits(date.getUTCMonth() + 1),
+      'second': two_digits(date.getUTCSeconds()),
+      'year': date.getUTCFullYear(),
+    };
+}
+
 function date_to_timestamp(){
     var converted = new Date(
       Date.UTC(
@@ -23,12 +35,22 @@ function second(){
         return;
     }
 
-    document.getElementById('timestamp').value = Math.floor(new Date().getTime() / 1000);
+    var timestamp = Math.floor(new Date().getTime() / 1000);
+    document.getElementById('timestamp').value = timestamp;
+
+    var date = create_date(timestamp);
+    document.getElementById('date').innerHTML =
+      + date['year'] + '-'
+      + date['month'] + '-'
+      + date['day'] + ' '
+      + date['hour'] + ':'
+      + date['minute'] + ':'
+      + date['second'];
 }
 
 function timestamp_to_date(){
-    var converted = new Date(parseFloat(document.getElementById('timestamp-input').value * 1000));
-    update_date_inputs(converted);
+    var converted = new Date(parseInt(document.getElementById('timestamp-input').value));
+    update_date_inputs(create_date(converted));
 }
 
 function two_digits(time){
@@ -39,12 +61,9 @@ function two_digits(time){
 }
 
 function update_date_inputs(date){
-    document.getElementById('day').value = two_digits(date.getUTCDate());
-    document.getElementById('hour').value = two_digits(date.getUTCHours());
-    document.getElementById('minute').value = two_digits(date.getUTCMinutes());
-    document.getElementById('month').value = two_digits(date.getUTCMonth() + 1);
-    document.getElementById('second').value = two_digits(date.getUTCSeconds());
-    document.getElementById('year').value = date.getUTCFullYear();
+    for(var portion in date){
+        document.getElementById(portion).value = date[portion];
+    }
 }
 
 var update_second = true;
@@ -59,7 +78,7 @@ document.getElementById('timestamp').onfocus = function(e){
 
 window.onload = function(e){
     var now = new Date();
-    update_date_inputs(now);
+    update_date_inputs(create_date(now / 1000));
     document.getElementById('timestamp-input').value = Math.floor(now.getTime() / 1000);
 
     window.setInterval(
