@@ -82,7 +82,7 @@ window.onload = function(e){
     document.getElementById('timestamp-input').value = Math.floor(now.getTime() / 1000);
 
     window.setInterval(
-      'second()',
+      second,
       1000
     );
 };
