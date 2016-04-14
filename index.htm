@@ -7,11 +7,11 @@
 <input id=timestamp> <span id=date></span> UTC
 <hr>
 <input id=year>-<input id=month maxlength=2>-<input id=day maxlength=2>
-  <input id=hour maxlength=2>:<input id=minute maxlength=2>:<input id=second maxlength=2>
+  <input id=hour maxlength=2>:<input id=minute maxlength=2>:<input id=second maxlength=2><br>
+<input onclick=date_to_timestamp() type=button value="↑Date to Timestamp↓">
   <select id=timezone>
     <option value=0>UTC</option>
-  </select><br>
-<input onclick=date_to_timestamp() type=button value="↑Date to Timestamp↓">
+  </select>
   <input onclick=timestamp_to_date() type=button value="↓Timestamp to Date↑"><br>
 <input id=timestamp-input><input onclick=now() type=button value=Now>
 
