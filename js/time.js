@@ -15,12 +15,12 @@ function create_date(timestamp){
 function date_to_timestamp(){
     var converted = new Date(
       Date.UTC(
-        parseInt(document.getElementById('year').value),
-        parseInt(document.getElementById('month').value) - 1,
-        parseInt(document.getElementById('day').value),
-        parseInt(document.getElementById('hour').value),
-        parseInt(document.getElementById('minute').value),
-        parseInt(document.getElementById('second').value)
+        parseInt(document.getElementById('year').value, 10),
+        parseInt(document.getElementById('month').value, 10) - 1,
+        parseInt(document.getElementById('day').value, 10),
+        parseInt(document.getElementById('hour').value, 10),
+        parseInt(document.getElementById('minute').value, 10),
+        parseInt(document.getElementById('second').value, 10)
       )
     );
     document.getElementById('timestamp-input').value = Math.floor(converted.getTime() / 1000);
@@ -49,7 +49,10 @@ function second(){
 }
 
 function timestamp_to_date(){
-    var converted = new Date(parseInt(document.getElementById('timestamp-input').value));
+    var converted = new Date(parseInt(
+      document.getElementById('timestamp-input').value,
+      10
+    ));
     update_date_inputs(create_date(converted));
 }
 
