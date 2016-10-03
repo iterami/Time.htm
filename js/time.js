@@ -26,7 +26,7 @@ function date_to_timestamp(){
     document.getElementById('timestamp-input').value = Math.floor(converted.getTime() / 1000);
 }
 
-function now(){
+function now_update(){
     document.getElementById('timestamp-input').value = document.getElementById('timestamp').value;
 }
 
@@ -83,6 +83,10 @@ window.onload = function(e){
     var now = new Date();
     update_date_inputs(create_date(now / 1000));
     document.getElementById('timestamp-input').value = Math.floor(now.getTime() / 1000);
+
+    document.getElementById('date-to-timestamp').onclick = date_to_timestamp;
+    document.getElementById('now').onclick = now_update;
+    document.getElementById('timestamp-to-date').onclick = timestamp_to_date;
 
     window.setInterval(
       second,
