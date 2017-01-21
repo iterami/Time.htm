@@ -71,14 +71,6 @@ function update_date_inputs(date){
 
 var update_second = true;
 
-document.getElementById('timestamp').onblur = function(e){
-    update_second = true;
-};
-
-document.getElementById('timestamp').onfocus = function(e){
-    update_second = false;
-};
-
 window.onload = function(e){
     var now = new Date();
     update_date_inputs(create_date(now / 1000));
@@ -92,4 +84,12 @@ window.onload = function(e){
       second,
       1000
     );
+
+    document.getElementById('timestamp').onblur = function(e){
+        update_second = true;
+    };
+
+    document.getElementById('timestamp').onfocus = function(e){
+        update_second = false;
+    };
 };
