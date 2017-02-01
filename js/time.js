@@ -85,11 +85,8 @@ window.onload = function(e){
       1000
     );
 
-    document.getElementById('timestamp').onblur = function(e){
-        update_second = true;
-    };
-
-    document.getElementById('timestamp').onfocus = function(e){
-        update_second = false;
+    document.getElementById('timestamp').onblur =
+      document.getElementById('timestamp').onfocus = function(e){
+        update_second = !update_second;
     };
 };
