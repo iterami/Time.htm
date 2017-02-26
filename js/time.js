@@ -40,7 +40,7 @@ function second(){
 
     var date = create_date(timestamp);
     document.getElementById('date').innerHTML =
-      + date['year'] + '-'
+      date['year'] + '-'
       + date['month'] + '-'
       + date['day'] + ' '
       + date['hour'] + ':'
