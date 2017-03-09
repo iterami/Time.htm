@@ -35,6 +35,7 @@ window.onload = function(e){
         var date = {
           'date': parseInt(document.getElementById('date').value, 10),
           'hour': parseInt(document.getElementById('hour').value, 10),
+          'millisecond': 0,
           'minute': parseInt(document.getElementById('minute').value, 10),
           'month': parseInt(document.getElementById('month').value, 10),
           'second': parseInt(document.getElementById('second').value, 10),
