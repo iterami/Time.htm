@@ -1,6 +1,6 @@
 'use strict';
 
-function second(){
+function update(){
     if(!update_second){
         return;
     }
@@ -56,8 +56,8 @@ window.onload = function(e){
     };
 
     window.setInterval(
-      second,
-      1000
+      update,
+      100
     );
 
     document.getElementById('timestamp-current').onblur =
