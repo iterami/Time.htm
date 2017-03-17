@@ -42,6 +42,11 @@ window.onload = function(e){
           'timezone': 0,
           'year': parseInt(document.getElementById('year').value, 10),
         };
+        for(var value in date){
+            if(isNaN(date[value])){
+                date[value] = 0;
+            }
+        }
         update_date_inputs(date);
         document.getElementById('timestamp').value = time_date_to_timestamp({
           'date': date,
@@ -51,8 +56,13 @@ window.onload = function(e){
         document.getElementById('timestamp').value = document.getElementById('timestamp-current').value;
     };
     document.getElementById('timestamp-to-date').onclick = function(){
+        var timestamp = parseInt(document.getElementById('timestamp').value, 10);
+        if(isNaN(timestamp)){
+            timestamp = 0;
+        }
+
         update_date_inputs(time_timestamp_to_date({
-          'timestamp': parseInt(document.getElementById('timestamp').value, 10),
+          'timestamp': timestamp,
         }));
     };
 
