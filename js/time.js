@@ -32,25 +32,11 @@ window.onload = function(e){
     document.getElementById('timestamp').value = now['timestamp'];
 
     document.getElementById('date-to-timestamp').onclick = function(){
-        var date = {
-          'date': parseInt(document.getElementById('date').value, 10),
-          'hour': parseInt(document.getElementById('hour').value, 10),
-          'millisecond': 0,
-          'minute': parseInt(document.getElementById('minute').value, 10),
-          'month': parseInt(document.getElementById('month').value, 10),
-          'second': parseInt(document.getElementById('second').value, 10),
-          'timezone': 0,
-          'year': parseInt(document.getElementById('year').value, 10),
-        };
-        for(var value in date){
-            if(isNaN(date[value])){
-                date[value] = 0;
-            }
-        }
-        update_date_inputs(date);
-        document.getElementById('timestamp').value = time_date_to_timestamp({
-          'date': date,
-        });
+        var date = time_from_inputs();
+        document.getElementById('timestamp').value = date;
+        update_date_inputs(time_timestamp_to_date({
+          'timestamp': date,
+        }));
     };
     document.getElementById('now').onclick = function(){
         document.getElementById('timestamp').value = document.getElementById('timestamp-current').value;
