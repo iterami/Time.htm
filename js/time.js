@@ -1,32 +1,6 @@
 'use strict';
 
-function update(){
-    if(!update_second){
-        return;
-    }
-
-    var timestamp = time_timestamp_to_date();
-    document.getElementById('timestamp-current').value = timestamp['timestamp'];
-
-    document.getElementById('date-display').innerHTML = time_format_date({
-      'date': timestamp,
-    });
-}
-
-function update_date_inputs(date){
-    for(var portion in date){
-        var element = document.getElementById(portion);
-        if(element){
-            element.value = time_two_digits({
-              'number': date[portion],
-            });
-        }
-    }
-}
-
-var update_second = true;
-
-window.onload = function(e){
+function repo_init(){
     var now = time_timestamp_to_date();
     update_date_inputs(now);
     document.getElementById('timestamp').value = now['timestamp'];
@@ -61,4 +35,30 @@ window.onload = function(e){
       document.getElementById('timestamp-current').onfocus = function(e){
         update_second = !update_second;
     };
-};
+}
+
+function update(){
+    if(!update_second){
+        return;
+    }
+
+    var timestamp = time_timestamp_to_date();
+    document.getElementById('timestamp-current').value = timestamp['timestamp'];
+
+    document.getElementById('date-display').innerHTML = time_format_date({
+      'date': timestamp,
+    });
+}
+
+function update_date_inputs(date){
+    for(var portion in date){
+        var element = document.getElementById(portion);
+        if(element){
+            element.value = time_two_digits({
+              'number': date[portion],
+            });
+        }
+    }
+}
+
+var update_second = true;
