@@ -1,6 +1,10 @@
 'use strict';
 
 function repo_init(){
+    core_repo_init({
+      'title': 'Time.htm',
+    });
+
     var now = time_timestamp_to_date();
     update_date_inputs(now);
     document.getElementById('timestamp').value = now['timestamp'];
