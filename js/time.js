@@ -5,29 +5,16 @@ function repo_init(){
       'title': 'Time.htm',
     });
 
-    var now = time_timestamp_to_date();
-    update_date_inputs(now);
-    document.getElementById('timestamp').value = now['timestamp'];
+    update_times(time_timestamp_to_date()['timestamp']);
 
     document.getElementById('date-to-timestamp').onclick = function(){
-        var date = time_from_inputs();
-        document.getElementById('timestamp').value = date;
-        update_date_inputs(time_timestamp_to_date({
-          'timestamp': date,
-        }));
+        update_times(time_from_inputs());
     };
     document.getElementById('now').onclick = function(){
         document.getElementById('timestamp').value = document.getElementById('timestamp-current').value;
     };
     document.getElementById('timestamp-to-date').onclick = function(){
-        var timestamp = parseInt(document.getElementById('timestamp').value, 10);
-        if(isNaN(timestamp)){
-            timestamp = 0;
-        }
-
-        update_date_inputs(time_timestamp_to_date({
-          'timestamp': timestamp,
-        }));
+        update_times(parseInt(document.getElementById('timestamp').value));
     };
 
     window.setInterval(
@@ -63,6 +50,15 @@ function update_date_inputs(date){
             });
         }
     }
+}
+
+function update_times(timestamp){
+    document.getElementById('timestamp').value = timestamp;
+    document.getElementById('timestamp-seconds').value = Math.floor(timestamp / 1000);
+
+    update_date_inputs(time_timestamp_to_date({
+      'timestamp': timestamp,
+    }));
 }
 
 var update_second = true;
