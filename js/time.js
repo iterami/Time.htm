@@ -14,7 +14,7 @@ function repo_init(){
         document.getElementById('timestamp').value = document.getElementById('timestamp-current').value;
     };
     document.getElementById('timestamp-to-date').onclick = function(){
-        update_times(parseInt(document.getElementById('timestamp').value));
+        update_times(parseInt(document.getElementById('timestamp').value, 10));
     };
 
     window.setInterval(
