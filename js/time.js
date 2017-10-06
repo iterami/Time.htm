@@ -22,8 +22,9 @@ function repo_init(){
       100
     );
 
-    document.getElementById('timestamp-current').onblur =
-      document.getElementById('timestamp-current').onfocus = function(e){
+    var element = document.getElementById('timestamp-current');
+    element.onblur =
+      element.onfocus = function(e){
         update_second = !update_second;
     };
 }
