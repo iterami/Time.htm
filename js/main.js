@@ -2,20 +2,27 @@
 
 function repo_init(){
     core_repo_init({
+      'info-events': {
+        'date-to-timestamp': {
+          'todo': function(){
+              update_times(time_from_inputs());
+          },
+        },
+        'now': {
+          'todo': function(){
+              document.getElementById('timestamp').value = document.getElementById('timestamp-current').value;
+          },
+        },
+        'timestamp-to-date': {
+          'todo': function(){
+              update_times(parseInt(document.getElementById('timestamp').value, 10));
+          },
+        },
+      },
       'title': 'Time.htm',
     });
 
     update_times(time_timestamp_to_date()['timestamp']);
-
-    document.getElementById('date-to-timestamp').onclick = function(){
-        update_times(time_from_inputs());
-    };
-    document.getElementById('now').onclick = function(){
-        document.getElementById('timestamp').value = document.getElementById('timestamp-current').value;
-    };
-    document.getElementById('timestamp-to-date').onclick = function(){
-        update_times(parseInt(document.getElementById('timestamp').value, 10));
-    };
 
     window.setInterval(
       update,
