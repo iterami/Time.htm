@@ -15,12 +15,12 @@ function update(){
 
 function update_date_inputs(date){
     for(var portion in date){
-        var element = document.getElementById(portion);
-        if(element){
-            element.value = time_two_digits({
-              'number': date[portion],
-            });
-        }
+        core_html_modify({
+          'id': portion,
+          'properties': {
+            'value': date[portion],
+          },
+        });
     }
 }
 
