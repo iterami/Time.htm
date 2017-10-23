@@ -2,6 +2,9 @@
 
 function repo_init(){
     core_repo_init({
+      'globals': {
+        'update_second': true,
+      },
       'info-events': {
         'date-to-timestamp': {
           'todo': function(){

@@ -32,5 +32,3 @@ function update_times(timestamp){
       'timestamp': timestamp,
     }));
 }
-
-var update_second = true;
