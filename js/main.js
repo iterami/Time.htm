@@ -2,25 +2,25 @@
 
 function repo_init(){
     core_repo_init({
-      'globals': {
-        'update_second': true,
-      },
-      'info-events': {
+      'events': {
         'date-to-timestamp': {
-          'todo': function(){
+          'onclick': function(){
               update_times(time_from_inputs());
           },
         },
         'now': {
-          'todo': function(){
+          'onclick': function(){
               document.getElementById('timestamp').value = document.getElementById('timestamp-current').value;
           },
         },
         'timestamp-to-date': {
-          'todo': function(){
+          'onclick': function(){
               update_times(parseInt(document.getElementById('timestamp').value, 10));
           },
         },
+      },
+      'globals': {
+        'update_second': true,
       },
       'title': 'Time.htm',
     });
