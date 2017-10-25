@@ -13,6 +13,14 @@ function repo_init(){
               document.getElementById('timestamp').value = document.getElementById('timestamp-current').value;
           },
         },
+        'timestamp-current': {
+          'onblur': function(){
+              update_second = !update_second;
+          },
+          'onfocus': function(){
+              update_second = !update_second;
+          },
+        },
         'timestamp-to-date': {
           'onclick': function(){
               update_times(parseInt(document.getElementById('timestamp').value, 10));
@@ -31,10 +39,4 @@ function repo_init(){
       update,
       100
     );
-
-    var element = document.getElementById('timestamp-current');
-    element.onblur =
-      element.onfocus = function(e){
-        update_second = !update_second;
-    };
 }
