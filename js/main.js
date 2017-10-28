@@ -35,8 +35,8 @@ function repo_init(){
 
     update_times(time_timestamp_to_date()['timestamp']);
 
-    window.setInterval(
-      update,
-      100
-    );
+    core_interval_modify({
+      'interval': 100,
+      'todo': update,
+    });
 }
