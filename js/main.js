@@ -23,7 +23,7 @@ function repo_init(){
         },
         'timestamp-to-date': {
           'onclick': function(){
-              update_times(parseInt(document.getElementById('timestamp').value, 10));
+              update_times(Number.parseInt(document.getElementById('timestamp').value, 10));
           },
         },
       },
