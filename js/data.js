@@ -5,7 +5,7 @@ function update(){
         return;
     }
 
-    var timestamp = core_timestamp_to_date();
+    let timestamp = core_timestamp_to_date();
     document.getElementById('timestamp-current').value = timestamp['timestamp'];
 
     document.getElementById('date-display').innerHTML = core_time_format({
@@ -14,7 +14,7 @@ function update(){
 }
 
 function update_date_inputs(date){
-    for(var portion in date){
+    for(let portion in date){
         core_html_modify({
           'id': portion,
           'properties': {
