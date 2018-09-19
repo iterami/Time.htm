@@ -36,6 +36,7 @@ function repo_init(){
     update_times(core_timestamp_to_date()['timestamp']);
 
     core_interval_modify({
+      'id': 'time',
       'interval': 100,
       'todo': update,
     });
