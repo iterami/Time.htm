@@ -13,22 +13,11 @@ function repo_init(){
               document.getElementById('timestamp').value = document.getElementById('timestamp-current').value;
           },
         },
-        'timestamp-current': {
-          'onblur': function(){
-              update_second = !update_second;
-          },
-          'onfocus': function(){
-              update_second = !update_second;
-          },
-        },
         'timestamp-to-date': {
           'onclick': function(){
               update_times(Number.parseInt(document.getElementById('timestamp').value, 10));
           },
         },
-      },
-      'globals': {
-        'update_second': true,
       },
       'title': 'Time.htm',
     });

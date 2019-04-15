@@ -1,10 +1,6 @@
 'use strict';
 
 function update(){
-    if(!update_second){
-        return;
-    }
-
     let timestamp = core_timestamp_to_date();
     document.getElementById('timestamp-current').value = timestamp['timestamp'];
 
