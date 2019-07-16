@@ -1,10 +1,10 @@
 'use strict';
 
 function update(){
-    let timestamp = core_timestamp_to_date();
+    let timestamp = timestamp_to_date();
     document.getElementById('timestamp-current').value = timestamp['timestamp'];
 
-    document.getElementById('date-display').innerHTML = core_time_format({
+    document.getElementById('date-display').innerHTML = time_format({
       'date': timestamp,
     });
 }
@@ -24,7 +24,7 @@ function update_times(timestamp){
     document.getElementById('timestamp').value = timestamp;
     document.getElementById('timestamp-seconds').value = Math.floor(timestamp / 1000);
 
-    update_date_inputs(core_timestamp_to_date({
+    update_date_inputs(timestamp_to_date({
       'timestamp': timestamp,
     }));
 }

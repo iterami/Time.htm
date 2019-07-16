@@ -5,7 +5,7 @@ function repo_init(){
       'events': {
         'date-to-timestamp': {
           'onclick': function(){
-              update_times(core_time_from_inputs());
+              update_times(time_from_inputs());
           },
         },
         'now': {
@@ -22,7 +22,7 @@ function repo_init(){
       'title': 'Time.htm',
     });
 
-    update_times(core_timestamp_to_date()['timestamp']);
+    update_times(timestamp_to_date()['timestamp']);
 
     core_interval_modify({
       'id': 'time',
