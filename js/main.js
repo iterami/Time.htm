@@ -27,6 +27,7 @@ function repo_init(){
     core_interval_modify({
       'id': 'time',
       'interval': 100,
+      'sync': true,
       'todo': update,
     });
 }
