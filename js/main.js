@@ -5,12 +5,16 @@ function repo_init(){
       'events': {
         'date-to-timestamp': {
           'onclick': function(){
-              update_times(time_from_inputs());
+              let timestamp = time_from_inputs();
+              update_times(timestamp);
+              update_date_inputs(timestamp_to_date({
+                'timestamp': timestamp,
+              }));
           },
         },
         'now': {
           'onclick': function(){
-              document.getElementById('timestamp').value = document.getElementById('timestamp-current').value;
+              update_times(Number(document.getElementById('timestamp-current').value));
           },
         },
         'timestamp-to-date': {
