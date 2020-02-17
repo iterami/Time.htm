@@ -1,24 +1,24 @@
 'use strict';
 
 function update(){
-    let timestamp = timestamp_to_date();
+    const timestamp = timestamp_to_date();
     document.getElementById('timestamp-current').value = timestamp['timestamp'];
 
     document.getElementById('date-display').textContent = time_format({
       'date': timestamp,
     });
 
-    let target = document.getElementById('timestamp').value;
+    const target = document.getElementById('timestamp').value;
     document.getElementById('diff').textContent = time_diff({
       'target': target,
     });
-    let diff = timestamp['timestamp'] - target;
-    let diffs = {
+    const diff = timestamp['timestamp'] - target;
+    const diffs = {
       'days': 86400000,
       'weeks': 604800000,
       'years': 31556908800,
     };
-    for(let id in diffs){
+    for(const id in diffs){
         document.getElementById('diff-' + id).textContent = core_number_format({
           'number': diff / diffs[id],
         });
@@ -26,7 +26,7 @@ function update(){
 }
 
 function update_date_inputs(date){
-    for(let portion in date){
+    for(const portion in date){
         core_html_modify({
           'id': portion,
           'properties': {
