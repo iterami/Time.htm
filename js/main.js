@@ -32,9 +32,13 @@ function repo_init(){
               update_times(Number(document.getElementById('timestamp').value));
           },
         },
+        'timezone': {
+          'oninput': core_storage_save,
+        },
       },
       'storage': {
         'alarms': '{}',
+        'timezone': 0,
       },
       'storage-menu': '<textarea id=alarms></textarea><br>',
       'title': 'Time.htm',

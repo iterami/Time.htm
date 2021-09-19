@@ -4,13 +4,14 @@
 <title>Time.htm</title>
 <link href=../common/css/core.css rel=stylesheet>
 
-<span class=big id=date-display></span> UTC<br>
+<span class=big id=date-display></span><br>
+UTC<input class=mini id=timezone><input id=now type=button value=Now><br>
 <input id=timestamp-current readonly><br>
 <input class=mini id=year>-<input class=mini id=month maxlength=2>-<input class=mini id=date maxlength=2><br>
 <input class=mini id=hour maxlength=2>:<input class=mini id=minute maxlength=2>:<input class=mini id=second maxlength=2><br>
 <input id=date-to-timestamp type=button value=⤷><input id=timestamp><input id=timestamp-to-date type=button value=⤴><br>
 <input id=timestamp-seconds readonly><br>
-<select id=timezone><option value=00>UTC</option></select><input id=now type=button value=Now>
+
 <div class=medium id=diff></div>
 <table>
   <tr>
