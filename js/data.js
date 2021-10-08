@@ -90,7 +90,7 @@ function update(){
     };
     for(const id in diffs){
         document.getElementById('diff-' + id).textContent = core_number_format({
-          'number': diff / diffs[id],
+          'number': -diff / diffs[id],
         });
     }
 
