@@ -65,7 +65,7 @@ function alarm_create(args){
 }
 
 function update(){
-    const timezone = Number.isNaN(core_storage_data['timezone'])
+    const timezone = globalThis.isNaN(core_storage_data['timezone'])
       ? 0
       : Number(core_storage_data['timezone']) * 3600000;
 
