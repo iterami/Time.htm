@@ -87,6 +87,7 @@ function update(){
     const diffs = {
       'days': 86400000,
       'weeks': 604800000,
+      'months': 2592000000,
       'years': 31556908800,
     };
     for(const id in diffs){
