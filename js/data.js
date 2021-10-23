@@ -65,12 +65,13 @@ function alarm_create(args){
 }
 
 function update(){
+    const time = new Date().getTime();
     const timezone = globalThis.isNaN(core_storage_data['timezone'])
       ? 0
       : Number(core_storage_data['timezone']) * 3600000;
 
     const timestamp = timestamp_to_date({
-      'timestamp': new Date().getTime() + timezone,
+      'timestamp': time + timezone,
     });
     document.getElementById('timestamp-current').value = timestamp['timestamp'];
 
