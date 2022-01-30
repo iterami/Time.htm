@@ -5,11 +5,11 @@
 <link href=../common/css/core.css rel=stylesheet>
 
 <span class=big id=date-display></span><br>
-UTC<input class=mini id=timezone type=number><input id=now type=button value=Now><br>
+UTC<input class=mini id=timezone step=any type=number><input id=now type=button value=Now><br>
 <input id=timestamp-current readonly><br>
-<input class=mini id=year type=number>-<input class=mini id=month max=12 min=1 type=number>-<input class=mini id=date max=31 min=1 type=number><br>
-<input class=mini id=hour max=23 min=0 type=number>:<input class=mini id=minute max=59 min=0 type=number>:<input class=mini id=second max=59 min=0 type=number><br>
-<input id=date-to-timestamp type=button value=⤷><input id=timestamp type=number><input id=timestamp-to-date type=button value=⤴><br>
+<input class=mini id=year step=any type=number>-<input class=mini id=month max=12 min=1 step=any type=number>-<input class=mini id=date max=31 min=1 step=any type=number><br>
+<input class=mini id=hour max=23 min=0 step=any type=number>:<input class=mini id=minute max=59 min=0 step=any type=number>:<input class=mini id=second max=59 min=0 step=any type=number><br>
+<input id=date-to-timestamp type=button value=⤷><input id=timestamp step=any type=number><input id=timestamp-to-date type=button value=⤴><br>
 <input id=timestamp-seconds readonly><br>
 
 <div class=medium id=diff></div>
@@ -27,7 +27,7 @@ UTC<input class=mini id=timezone type=number><input id=now type=button value=Now
     <td>Years
     <td id=diff-years>
 </table>
-<input id=add-alarm type=button value=Add><input id=alarm-label value=alarm>in<input class=mini id=alarm-seconds value=3600 type=number>seconds
+<input id=add-alarm type=button value=Add><input id=alarm-label value=alarm>in<input class=mini id=alarm-seconds value=3600 step=any type=number>seconds
 <table>
   <tbody id=alarms-table></tbody>
 </table>
