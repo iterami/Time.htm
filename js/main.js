@@ -33,7 +33,13 @@ function repo_init(){
           },
         },
         'timezone': {
-          'oninput': core_storage_save,
+          'oninput': function(){
+              core_storage_save({
+                'keys': [
+                  'timezone',
+                ],
+              });
+          },
         },
       },
       'storage': {
