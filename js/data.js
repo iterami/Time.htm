@@ -110,7 +110,7 @@ function update(){
           });
 
           if(remaining < 0){
-              element.style.background = '#f00';
+              element.style.backgroundColor = '#f00';
 
               if(element.childNodes[3].childNodes[0].checked){
                   play_alarm_sound = true;
