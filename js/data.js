@@ -75,9 +75,11 @@ function update(){
     });
     document.getElementById('timestamp-current').value = timestamp['timestamp'];
 
-    document.getElementById('date-display').textContent = time_format({
+    const date_display = time_format({
       'date': timestamp,
     });
+    document.getElementById('date-display').textContent = date_display;
+    document.title = date_display;
 
     const target = document.getElementById('timestamp').value;
     document.getElementById('diff').textContent = time_diff({
