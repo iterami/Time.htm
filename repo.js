@@ -146,7 +146,7 @@ function repo_init(){
 
 function update(){
     const time = new Date().getTime();
-    const timezone = globalThis.isNaN(core_storage_data['timezone'])
+    const timezone = Number.isNaN(core_storage_data['timezone'])
       ? 0
       : Number(core_storage_data['timezone']) * 3600000;
 
