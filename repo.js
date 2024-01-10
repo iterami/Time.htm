@@ -96,11 +96,9 @@ function repo_init(){
         },
         'timezone': {
           'oninput': function(){
-              core_storage_save({
-                'keys': [
-                  'timezone',
-                ],
-              });
+              core_storage_save([
+                'timezone',
+              ]);
           },
         },
       },
