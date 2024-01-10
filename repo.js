@@ -47,9 +47,7 @@ function alarm_create(args){
         + '<td>' + args['label']
         + '<td>'
         + '<td>' + time_format({
-          'date': timestamp_to_date({
-            'timestamp': entity_entities[args['label']]['target'],
-          }),
+          'date': timestamp_to_date(entity_entities[args['label']]['target']),
         })
         + '<td><input checked type=checkbox><input id="' + args['label'] + '-button" type=button value=X>'
     );
@@ -150,9 +148,7 @@ function update(){
       ? 0
       : Number(core_storage_data['timezone']) * 3600000;
 
-    const timestamp = timestamp_to_date({
-      'timestamp': time + timezone,
-    });
+    const timestamp = timestamp_to_date(time + timezone);
     document.getElementById('timestamp-current').value = timestamp['timestamp'];
 
     const date_display = time_format({
@@ -225,7 +221,5 @@ function update_times(timestamp){
     document.getElementById('timestamp').value = timestamp;
     document.getElementById('timestamp-seconds').value = Math.floor(timestamp / 1000);
 
-    update_date_inputs(timestamp_to_date({
-      'timestamp': timestamp,
-    }));
+    update_date_inputs(timestamp_to_date(timestamp));
 }
