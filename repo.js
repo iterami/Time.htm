@@ -49,7 +49,7 @@ function alarm_create(args){
         + '<td>' + time_format({
           'date': timestamp_to_date(entity_entities[args['label']]['target']),
         })
-        + '<td><input checked type=checkbox><input id="' + args['label'] + '-button" type=button value=X>'
+        + '<td><input checked type=checkbox><button id="' + args['label'] + '-button" type=button>X</button>'
     );
     document.getElementById(args['label'] + '-button').onclick = function(){
         alarm_clear(
