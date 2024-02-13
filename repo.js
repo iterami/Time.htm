@@ -217,7 +217,7 @@ function update_date_inputs(date){
 
 function update_times(timestamp){
     document.getElementById('timestamp').value = timestamp;
-    document.getElementById('timestamp-seconds').value = Math.floor(timestamp / 1000);
+    document.getElementById('timestamp-seconds').textContent = Math.floor(timestamp / 1000);
 
     update_date_inputs(timestamp_to_date(timestamp));
 }
