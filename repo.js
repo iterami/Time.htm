@@ -196,9 +196,7 @@ function update(){
     });
 
     if(play_alarm_sound){
-        audio_start({
-          'id': 'alarm',
-        });
+        audio_start('alarm');
     }
 }
 
