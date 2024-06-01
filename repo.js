@@ -86,12 +86,12 @@ function repo_init(){
         },
         'now': {
           'onclick': function(){
-              update_times(Number(document.getElementById('timestamp-current').value));
+              update_times(Number(core_elements['timestamp-current'].value));
           },
         },
         'timestamp-to-date': {
           'onclick': function(){
-              update_times(Number(document.getElementById('timestamp').value));
+              update_times(Number(core_elements['timestamp'].value));
           },
         },
         'timezone': {
@@ -147,30 +147,34 @@ function update(){
       : Number(core_storage_data['timezone']) * 3600000;
 
     const timestamp = timestamp_to_date(time + timezone);
-    document.getElementById('timestamp-current').value = timestamp['timestamp'];
-
     const date_display = time_format({
       'date': timestamp,
     });
-    document.getElementById('date-display').textContent = date_display;
     document.title = date_display + ' - ' + core_repo_title;
 
-    const target = document.getElementById('timestamp').value;
-    document.getElementById('diff').textContent = time_diff({
-      'target': target,
+    const diff = timestamp['timestamp'] - core_elements['timestamp'].value;
+
+    core_ui_update({
+      'ids': {
+        'date-display': date_display,
+        'diff': time_diff({
+          'target': core_elements['timestamp'].value,
+        }),
+        'diff-days': core_number_format({
+          'number': -diff / 86400000,
+        }),
+        'diff-months': core_number_format({
+          'number': -diff / 2592000000,
+        }),
+        'diff-weeks': core_number_format({
+          'number': -diff / 604800000,
+        }),
+        'diff-years': core_number_format({
+          'number': -diff / 31556908800,
+        }),
+        'timestamp-current': timestamp['timestamp'],
+      },
     });
-    const diff = timestamp['timestamp'] - target;
-    const diffs = {
-      'days': 86400000,
-      'weeks': 604800000,
-      'months': 2592000000,
-      'years': 31556908800,
-    };
-    for(const id in diffs){
-        document.getElementById('diff-' + id).textContent = core_number_format({
-          'number': -diff / diffs[id],
-        });
-    }
 
     let play_alarm_sound = false;
     entity_group_modify({
@@ -214,8 +218,11 @@ function update_date_inputs(date){
 }
 
 function update_times(timestamp){
-    document.getElementById('timestamp').value = timestamp;
-    document.getElementById('timestamp-seconds').textContent = Math.floor(timestamp / 1000);
-
+    core_ui_update({
+      'ids': {
+        'timestamp': timestamp,
+        'timestamp-seconds': Math.floor(timestamp / 1000),
+      },
+    });
     update_date_inputs(timestamp_to_date(timestamp));
 }
