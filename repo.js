@@ -1,7 +1,7 @@
 'use strict';
 
 function alarm_clear(element, id){
-    document.getElementById('alarms-table').removeChild(
+    core_elements['alarms-table'].removeChild(
       element.parentElement.parentElement
     );
 
@@ -19,9 +19,9 @@ function alarm_create(args){
     args = core_args({
       'args': args,
       'defaults': {
-        'label': document.getElementById('alarm-label').value,
+        'label': core_elements['alarm-label'].value,
         'remake': false,
-        'target': date_to_timestamp() + Number.parseInt(document.getElementById('alarm-seconds').value, 10) * 1000,
+        'target': date_to_timestamp() + Number.parseInt(core_elements['alarm-seconds'].value, 10) * 1000,
       },
     });
 
@@ -41,7 +41,7 @@ function alarm_create(args){
       ],
     });
 
-    document.getElementById('alarms-table').insertAdjacentHTML(
+    core_elements['alarms-table'].insertAdjacentHTML(
       'beforeend',
       '<tr id="' + args['label'] + '">'
         + '<td>' + args['label']
@@ -67,7 +67,7 @@ function repo_init(){
       'beforeunload': {
         'todo': function(){
             if(entity_info['alarm']['count'] <= 0){
-                document.getElementById('alarms').value = '{}';
+                core_elements['alarms'].value = '{}';
             }
 
             core_storage_save();
@@ -108,6 +108,11 @@ function repo_init(){
       },
       'storage-menu': '<textarea id=alarms></textarea><br>',
       'title': 'Time.htm',
+      'ui-elements': [
+        'alarm-label',
+        'alarm-seconds',
+        'alarms-table',
+      ],
     });
     entity_set({
       'default': true,
