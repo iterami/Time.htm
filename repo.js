@@ -209,19 +209,6 @@ function update(){
     }
 }
 
-function update_date_inputs(date){
-    for(const portion in date){
-        core_html_modify({
-          'id': portion,
-          'properties': {
-            'value': core_digits_min({
-              'number': date[portion],
-            }),
-          },
-        });
-    }
-}
-
 function update_times(timestamp){
     core_ui_update({
       'ids': {
@@ -229,5 +216,14 @@ function update_times(timestamp){
         'timestamp-seconds': Math.floor(timestamp / 1000),
       },
     });
-    update_date_inputs(timestamp_to_date(timestamp));
+    const date = timestamp_to_date(timestamp);
+    for(const portion in date){
+        const element = document.getElementById(portion);
+        if(!element){
+            continue;
+        }
+        element.value = core_digits_min({
+          'number': date[portion],
+        });
+    }
 }
