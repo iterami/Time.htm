@@ -217,13 +217,27 @@ function update_times(timestamp){
       },
     });
     const date = timestamp_to_date(timestamp);
-    for(const portion in date){
-        const element = document.getElementById(portion);
-        if(!element){
-            continue;
-        }
-        element.value = core_digits_min({
-          'number': date[portion],
-        });
-    }
+    core_ui_update({
+      'ids': {
+        'date': core_digits_min({
+          'number': date['date'],
+        }),
+        'hour': core_digits_min({
+          'number': date['hour'],
+        }),
+        'leap': ((date['year'] & 3) === 0 && (date['year'] % 25 !== 0 || (date['year'] & 15) === 0))
+          ? 'is'
+          : 'NOT',
+        'minute': core_digits_min({
+          'number': date['minute'],
+        }),
+        'month': core_digits_min({
+          'number': date['month'],
+        }),
+        'second': core_digits_min({
+          'number': date['second'],
+        }),
+        'year': date['year'],
+      },
+    });
 }
