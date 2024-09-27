@@ -225,9 +225,9 @@ function update_times(timestamp){
         'hour': core_digits_min({
           'number': date['hour'],
         }),
-        'leap': ((date['year'] & 3) === 0 && (date['year'] % 25 !== 0 || (date['year'] & 15) === 0))
-          ? 'is'
-          : 'NOT',
+        'leap': date['year'] + ' is ' + (((date['year'] & 3) === 0 && (date['year'] % 25 !== 0 || (date['year'] & 15) === 0))
+          ? 'a'
+          : 'NOT a'),
         'minute': core_digits_min({
           'number': date['minute'],
         }),
