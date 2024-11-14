@@ -104,9 +104,11 @@ function repo_init(){
       },
       'storage': {
         'alarms': '{}',
+        'alarm-frequency': 666,
         'timezone': 0,
       },
-      'storage-menu': '<textarea id=alarms></textarea><br>',
+      'storage-menu': '<textarea id=alarms></textarea><br>'
+        + '<table><tr><td><input class=mini id=alarm-frequency step=any type=number><td>Alarm Frequency</table>',
       'title': 'Time.htm',
       'ui-elements': [
         'alarm-label',
@@ -117,12 +119,6 @@ function repo_init(){
     entity_set({
       'default': true,
       'type': 'alarm',
-    });
-    audio_create({
-      'alarm': {
-        'duration': .5,
-        'frequency': 666,
-      },
     });
 
     const alarms = JSON.parse(core_storage_data['alarms']);
@@ -203,6 +199,12 @@ function update(){
     });
 
     if(play_alarm_sound){
+        audio_create({
+          'alarm': {
+            'duration': .5,
+            'frequency': core_storage_data['alarm-frequency'],
+          },
+        });
         audio_start('alarm');
     }
 }
