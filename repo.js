@@ -118,6 +118,12 @@ function repo_init(){
       'default': true,
       'type': 'alarm',
     });
+    audio_create({
+      'alarm': {
+        'duration': .5,
+        'frequency': 666,
+      },
+    });
 
     const alarms = JSON.parse(core_storage_data['alarms']);
     for(const alarm in alarms){
@@ -197,7 +203,7 @@ function update(){
     });
 
     if(play_alarm_sound){
-        audio_start('boop');
+        audio_start('alarm');
     }
 }
 
