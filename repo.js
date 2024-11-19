@@ -52,10 +52,12 @@ function alarm_create(args){
         + '<td><input checked type=checkbox><button id="' + args['label'] + '-button" type=button>X</button>'
     );
     document.getElementById(args['label'] + '-button').onclick = function(){
-        alarm_clear(
-          this,
-          args['label']
-        );
+        if(globalThis.confirm('Remove "' + args['label'] + '"?')){
+            alarm_clear(
+              this,
+              args['label']
+            );
+        }
     };
 
     core_storage_data['alarms'] = JSON.stringify(entity_entities);
@@ -149,7 +151,7 @@ function update(){
     const date_display = time_format({
       'date': timestamp,
     });
-    document.title = date_display + ' - ' + core_repo_title;
+    document.title = date_display;
 
     const diff = timestamp['timestamp'] - core_elements['timestamp'].value;
 
