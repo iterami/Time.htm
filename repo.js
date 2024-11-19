@@ -232,7 +232,7 @@ function update_times(timestamp){
             }
             dayofmonth -= month_start - 1;
             if(dayofmonth > month_end){
-                break;
+                continue;
             }
 
             calendar[week + ',' + day] = dayofmonth === date['date']
