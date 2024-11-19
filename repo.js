@@ -133,7 +133,7 @@ function repo_init(){
     for(let week = 0; week < 6; week++){
         calendar += '<tr>';
         for(let day = 0; day < 7; day++){
-            calendar += '<td id="' + week + ',' + day + '">';
+            calendar += '<td id=' + ((week * 7) + day) + '>';
         }
     }
     document.getElementById('calendar').innerHTML = calendar;
@@ -222,24 +222,20 @@ function update_times(timestamp){
     const calendar = {};
     const month_end = new Date(date['year'], date['month'], 0).getDate();
     const month_start = new Date(date['year'] + '-' + date['month'] + '-01').getDay();
-    for(let week = 0; week < 6; week++){
-        for(let day = 0; day < 7; day++){
-            const string = week + ',' + day;
-            calendar[string] = '';
+    for(let day = 0; day < 42; day++){
+        calendar[day] = '';
 
-            let dayofmonth = week * 7 + day;
-            if(dayofmonth < month_start){
-                continue;
-            }
-            dayofmonth -= month_start - 1;
-            if(dayofmonth > month_end){
-                calendar[string] = dayofmonth - month_end;
+        if(day < month_start){
+            continue;
+        }
+        const adjusted = day - month_start + 1;
+        if(adjusted > month_end){
+            calendar[day] = adjusted - month_end;
 
-            }else{
-                calendar[string] = dayofmonth === date['date']
-                  ? '[' + (dayofmonth) + ']'
-                  : dayofmonth;
-            }
+        }else{
+            calendar[day] = adjusted === date['date']
+              ? '[' + adjusted + ']'
+              : adjusted;
         }
     }
     core_ui_update({
