@@ -129,8 +129,16 @@ function repo_init(){
           'target': alarms[alarm]['target'],
         });
     }
-    update_times(timestamp_to_date()['timestamp']);
+    let calendar = '<tr class=header><td>Monday<td>Tuesday<td>Wednesday<td>Thursday<td>Friday<td>Saturday<td>Sunday';
+    for(let week = 0; week < 6; week++){
+        calendar += '<tr>';
+        for(let day = 0; day < 7; day++){
+            calendar += '<td id="' + week + ',' + day + '">';
+        }
+    }
+    document.getElementById('calendar').innerHTML = calendar;
 
+    update_times(timestamp_to_date()['timestamp']);
     core_interval_modify({
       'id': 'time',
       'interval': 1000,
@@ -210,13 +218,28 @@ function update(){
 }
 
 function update_times(timestamp){
-    core_ui_update({
-      'ids': {
-        'timestamp': timestamp,
-        'timestamp-seconds': Math.floor(timestamp / 1000),
-      },
-    });
     const date = timestamp_to_date(timestamp);
+    const calendar = {};
+    const month_end = new Date(date['year'], date['month'], 0).getDate();
+    const month_start = new Date(date['year'] + '-' + date['month'] + '-01').getDay();
+    for(let week = 0; week < 6; week++){
+        for(let day = 0; day < 7; day++){
+            calendar[week + ',' + day] = '';
+
+            let dayofmonth = week * 7 + day;
+            if(dayofmonth < month_start){
+                continue;
+            }
+            dayofmonth -= month_start - 1;
+            if(dayofmonth > month_end){
+                break;
+            }
+
+            calendar[week + ',' + day] = dayofmonth === date['date']
+              ? '[' + (dayofmonth) + ']'
+              : (dayofmonth);
+        }
+    }
     core_ui_update({
       'ids': {
         'date': core_digits_min({
@@ -226,8 +249,8 @@ function update_times(timestamp){
           'number': date['hour'],
         }),
         'leap': date['year'] + ' is ' + (((date['year'] & 3) === 0 && (date['year'] % 25 !== 0 || (date['year'] & 15) === 0))
-          ? 'a'
-          : 'NOT a'),
+          ? ''
+          : 'NOT') + ' a leap year',
         'minute': core_digits_min({
           'number': date['minute'],
         }),
@@ -237,7 +260,10 @@ function update_times(timestamp){
         'second': core_digits_min({
           'number': date['second'],
         }),
+        'timestamp': timestamp,
+        'timestamp-seconds': Math.floor(timestamp / 1000),
         'year': date['year'],
+        ...calendar,
       },
     });
 }

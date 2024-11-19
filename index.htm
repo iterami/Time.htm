@@ -5,13 +5,13 @@
 <link href=../common/css/core.css rel=stylesheet>
 
 <div class=big id=date-display></div>
-UTC<input class=mini id=timezone step=1 type=number><button id=now type=button>Now</button><br>
+<table id=calendar></table>
+UTC<input class=mini id=timezone step=1 type=number><button id=now type=button>Now</button> <span id=leap></span><br>
 <input id=timestamp-current readonly type=text><br>
 <input class=mini id=year step=1 type=number>-<input class=mini id=month max=12 min=1 step=1 type=number>-<input class=mini id=date max=31 min=1 step=1 type=number><br>
 <input class=mini id=hour max=23 min=0 step=1 type=number>:<input class=mini id=minute max=59 min=0 step=1 type=number>:<input class=mini id=second max=59 min=0 step=1 type=number><br>
 <button id=date-to-timestamp type=button>⤷</button><input id=timestamp step=1 type=number><button id=timestamp-to-date type=button>⤴</button>
 <div id=timestamp-seconds></div>
-<span id=leap></span> leap year
 <div class=medium id=diff></div>
 <table>
   <tr>
