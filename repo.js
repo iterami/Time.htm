@@ -224,7 +224,8 @@ function update_times(timestamp){
     const month_start = new Date(date['year'] + '-' + date['month'] + '-01').getDay();
     for(let week = 0; week < 6; week++){
         for(let day = 0; day < 7; day++){
-            calendar[week + ',' + day] = '';
+            const string = week + ',' + day;
+            calendar[string] = '';
 
             let dayofmonth = week * 7 + day;
             if(dayofmonth < month_start){
@@ -232,12 +233,13 @@ function update_times(timestamp){
             }
             dayofmonth -= month_start - 1;
             if(dayofmonth > month_end){
-                continue;
-            }
+                calendar[string] = dayofmonth - month_end;
 
-            calendar[week + ',' + day] = dayofmonth === date['date']
-              ? '[' + (dayofmonth) + ']'
-              : (dayofmonth);
+            }else{
+                calendar[string] = dayofmonth === date['date']
+                  ? '[' + (dayofmonth) + ']'
+                  : dayofmonth;
+            }
         }
     }
     core_ui_update({
