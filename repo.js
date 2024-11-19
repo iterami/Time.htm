@@ -1,13 +1,18 @@
 'use strict';
 
-function alarm_clear(element, id){
+function alarm_clear(event){
+    const alarm = event.target.id.split('-')[0];
+    if(!globalThis.confirm('Remove "' + alarm + '"?')){
+        return;
+    }
+
     core_elements['alarms-table'].removeChild(
-      element.parentElement.parentElement
+      event.target.parentElement.parentElement
     );
 
     entity_remove({
       'entities': [
-        id,
+        alarm,
       ],
     });
 
@@ -51,14 +56,7 @@ function alarm_create(args){
         })
         + '<td><input checked type=checkbox><button id="' + args['label'] + '-button" type=button>X</button>'
     );
-    document.getElementById(args['label'] + '-button').onclick = function(){
-        if(globalThis.confirm('Remove "' + args['label'] + '"?')){
-            alarm_clear(
-              this,
-              args['label']
-            );
-        }
-    };
+    document.getElementById(args['label'] + '-button').onclick = alarm_clear;
 
     core_storage_data['alarms'] = JSON.stringify(entity_entities);
     core_storage_update();
