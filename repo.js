@@ -1,5 +1,14 @@
 'use strict';
 
+function alarm_audio_init(){
+    audio_create({
+      'alarm': {
+        'duration': .5,
+        'frequency': core_storage_data['alarm-frequency'],
+      },
+    });
+}
+
 function alarm_clear(event){
     const alarm = event.target.id.split('-')[0];
     if(!globalThis.confirm('Remove "' + alarm + '"?')){
@@ -62,6 +71,14 @@ function alarm_create(args){
 
     core_storage_data['alarms'] = JSON.stringify(entity_entities);
     core_storage_update();
+
+    alarm_audio_init();
+}
+
+function repo_escape(){
+    if(entity_info['alarm']['count'] > 0){
+        alarm_audio_init();
+    }
 }
 
 function repo_init(){
@@ -208,12 +225,6 @@ function update(){
     });
 
     if(play_alarm_sound){
-        audio_create({
-          'alarm': {
-            'duration': .5,
-            'frequency': core_storage_data['alarm-frequency'],
-          },
-        });
         audio_start('alarm');
     }
 }
