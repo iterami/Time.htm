@@ -148,7 +148,7 @@ function repo_init(){
           'target': alarms[alarm]['target'],
         });
     }
-    let calendar = '<tr class=header><td>Monday<td>Tuesday<td>Wednesday<td>Thursday<td>Friday<td>Saturday<td>Sunday';
+    let calendar = '';
     for(let week = 0; week < 6; week++){
         calendar += '<tr>';
         for(let day = 0; day < 7; day++){
@@ -156,6 +156,9 @@ function repo_init(){
         }
     }
     document.getElementById('calendar').innerHTML = calendar;
+    for(let day = 0; day < 42; day++){
+        core_elements['calendar-' + day] = document.getElementById('calendar-' + day);
+    }
 
     update_times(timestamp_to_date()['timestamp']);
     core_interval_modify({
@@ -237,17 +240,25 @@ function update_times(timestamp){
     const previous_end = new Date(date['year'], date['month'] === 0 ? 11 : date['month'] - 1, 0).getDate();
     for(let day = 0; day < 42; day++){
         let value = '';
+        let style = '#000';
         if(day < month_start){
             value = previous_end - (month_start - day) + 1;
 
         }else{
             const adjusted = day - month_start + 1;
-            value = adjusted > month_end
-              ? adjusted - month_end
-              : (adjusted === date['date']
-                ? '[' + adjusted + ']'
-                : adjusted);
+            if(adjusted > month_end){
+                value = adjusted - month_end;
+
+            }else if(adjusted === date['date']){
+                style = '#333';
+                value = '[' + adjusted + ']';
+
+            }else{
+                style = '#111';
+                value = adjusted;
+            }
         }
+        core_elements['calendar-' + day].style.backgroundColor = style;
         calendar['calendar-' + day] = value;
     }
     core_ui_update({
