@@ -47,7 +47,6 @@ function alarm_create(args){
       ],
     });
 
-
     core_elements['alarms-table'].insertAdjacentHTML(
       'beforeend',
       '<tr id="' + args['label'] + '">'
@@ -136,7 +135,7 @@ function repo_init(){
     for(let week = 0; week < 6; week++){
         calendar += '<tr>';
         for(let day = 0; day < 7; day++){
-            calendar += '<td id=' + ((week * 7) + day) + '>';
+            calendar += '<td id=calendar-' + ((week * 7) + day) + '>';
         }
     }
     document.getElementById('calendar').innerHTML = calendar;
@@ -226,19 +225,19 @@ function update_times(timestamp){
     const month_start = new Date(date['year'] + '-' + date['month'] + '-01').getDay();
     const previous_end = new Date(date['year'], date['month'] === 0 ? 11 : date['month'] - 1, 0).getDate();
     for(let day = 0; day < 42; day++){
+        let value = '';
         if(day < month_start){
-            calendar[day] = previous_end - (month_start - day) + 1;
-            continue;
-        }
-        const adjusted = day - month_start + 1;
-        if(adjusted > month_end){
-            calendar[day] = adjusted - month_end;
+            value = previous_end - (month_start - day) + 1;
 
         }else{
-            calendar[day] = adjusted === date['date']
-              ? '[' + adjusted + ']'
-              : adjusted;
+            const adjusted = day - month_start + 1;
+            value = adjusted > month_end
+              ? adjusted - month_end
+              : (adjusted === date['date']
+                ? '[' + adjusted + ']'
+                : adjusted);
         }
+        calendar['calendar-' + day] = value;
     }
     core_ui_update({
       'ids': {
