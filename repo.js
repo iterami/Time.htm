@@ -15,6 +15,7 @@ function alarm_clear(event){
         alarm,
       ],
     });
+    delete core_elements[alarm];
 
     core_storage_data['alarms'] = JSON.stringify(entity_entities);
     core_storage_update();
@@ -46,6 +47,7 @@ function alarm_create(args){
       ],
     });
 
+
     core_elements['alarms-table'].insertAdjacentHTML(
       'beforeend',
       '<tr id="' + args['label'] + '">'
@@ -57,6 +59,7 @@ function alarm_create(args){
         + '<td><input checked type=checkbox><button id="' + args['label'] + '-button" type=button>X</button>'
     );
     document.getElementById(args['label'] + '-button').onclick = alarm_clear;
+    core_elements[args['label']] = document.getElementById(args['label']);
 
     core_storage_data['alarms'] = JSON.stringify(entity_entities);
     core_storage_update();
@@ -189,17 +192,16 @@ function update(){
         'alarm',
       ],
       'todo': function(entity){
-          const element = document.getElementById(entity);
           const remaining = (entity_entities[entity]['target'] - date_to_timestamp()) / 1000;
 
-          element.childNodes[1].textContent = time_diff({
+          core_elements[entity].childNodes[1].textContent = time_diff({
             'target': remaining * 1000 + date_to_timestamp(),
           });
 
           if(remaining < 0){
-              element.style.backgroundColor = '#f00';
+              core_elements[entity].style.backgroundColor = '#f00';
 
-              if(element.childNodes[3].childNodes[0].checked){
+              if(core_elements[entity].childNodes[3].childNodes[0].checked){
                   play_alarm_sound = true;
               }
           }
