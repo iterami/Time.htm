@@ -222,10 +222,10 @@ function update_times(timestamp){
     const calendar = {};
     const month_end = new Date(date['year'], date['month'], 0).getDate();
     const month_start = new Date(date['year'] + '-' + date['month'] + '-01').getDay();
+    const previous_end = new Date(date['year'], date['month'] === 0 ? 11 : date['month'] - 1, 0).getDate();
     for(let day = 0; day < 42; day++){
-        calendar[day] = '';
-
         if(day < month_start){
+            calendar[day] = previous_end - (month_start - day) + 1;
             continue;
         }
         const adjusted = day - month_start + 1;
