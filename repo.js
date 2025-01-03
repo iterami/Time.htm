@@ -271,7 +271,7 @@ function update_times(timestamp){
         }),
         'leap': date['year'] + ' is ' + (((date['year'] & 3) === 0 && (date['year'] % 25 !== 0 || (date['year'] & 15) === 0))
           ? ''
-          : 'NOT') + ' a leap year',
+          : 'NOT'),
         'minute': core_digits_min({
           'number': date['minute'],
         }),
