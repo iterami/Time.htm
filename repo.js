@@ -236,7 +236,7 @@ function update_times(timestamp){
     const date = timestamp_to_date(timestamp);
     const calendar = {};
     const month_end = new Date(date['year'], date['month'], 0).getDate();
-    const month_start = new Date(date['year'] + '-' + date['month'] + '-01').getDay();
+    const month_start = new Date(date['year'] + '-' + date['month'] + '-01').getDay() - 1;
     const previous_end = new Date(date['year'], date['month'] === 0 ? 11 : date['month'] - 1, 0).getDate();
     for(let day = 0; day < 42; day++){
         let value = '';
