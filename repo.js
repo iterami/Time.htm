@@ -88,8 +88,6 @@ function repo_init(){
             if(entity_info['alarm']['count'] <= 0){
                 core_elements['alarms'].value = '{}';
             }
-
-            core_storage_save();
         }
       },
       'events': {
