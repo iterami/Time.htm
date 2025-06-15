@@ -4,7 +4,7 @@ function alarm_audio_init(){
     audio_create({
       'alarm': {
         'duration': .5,
-        'frequency': core_storage_data['alarm-frequency'],
+        'frequency': core_storage_data.alarm_frequency,
       },
     });
 }
@@ -15,7 +15,7 @@ function alarm_clear(event){
         return;
     }
 
-    core_elements['alarms-table'].removeChild(
+    core_elements.alarms_table.removeChild(
       event.target.parentElement.parentElement
     );
 
@@ -26,7 +26,7 @@ function alarm_clear(event){
     });
     delete core_elements[alarm];
 
-    core_storage_data['alarms'] = JSON.stringify(entity_entities);
+    core_storage_data.alarms = JSON.stringify(entity_entities);
     core_storage_update();
 }
 
@@ -34,49 +34,49 @@ function alarm_create(args){
     args = core_args({
       'args': args,
       'defaults': {
-        'label': core_elements['alarm-label'].value,
+        'label': core_elements.alarm_label.value,
         'remake': false,
-        'target': date_to_timestamp() + Number.parseInt(core_elements['alarm-seconds'].value, 10) * 1000,
+        'target': date_to_timestamp() + Number.parseInt(core_elements.alarm_seconds.value, 10) * 1000,
       },
     });
 
-    if(!args['remake']
-      && JSON.parse(core_storage_data['alarms'])[args['label']]){
+    if(!args.remake
+      && JSON.parse(core_storage_data.alarms)[args.label]){
         return;
     }
 
     entity_create({
-      'id': args['label'],
+      'id': args.label,
       'properties': {
-        'label': args['label'],
-        'target': args['target'],
+        'label': args.label,
+        'target': args.target,
       },
       'types': [
         'alarm',
       ],
     });
 
-    core_elements['alarms-table'].insertAdjacentHTML(
+    core_elements.alarms_table.insertAdjacentHTML(
       'beforeend',
-      '<tr id="' + args['label'] + '">'
-        + '<td>' + args['label']
+      '<tr id="' + args.label + '">'
+        + '<td>' + args.label
         + '<td>'
         + '<td>' + time_format({
-          'date': timestamp_to_date(entity_entities[args['label']]['target']),
+          'date': timestamp_to_date(entity_entities[args.label].target),
         })
-        + '<td><input checked type=checkbox><button id="' + args['label'] + '-button" type=button>X</button>'
+        + '<td><input checked type=checkbox><button id="' + args.label + '-button" type=button>X</button>'
     );
-    document.getElementById(args['label'] + '-button').onclick = alarm_clear;
-    core_elements[args['label']] = document.getElementById(args['label']);
+    document.getElementById(args.label + '-button').onclick = alarm_clear;
+    core_elements[args.label] = document.getElementById(args.label);
 
-    core_storage_data['alarms'] = JSON.stringify(entity_entities);
+    core_storage_data.alarms = JSON.stringify(entity_entities);
     core_storage_update();
 
     alarm_audio_init();
 }
 
 function repo_escape(){
-    if(entity_info['alarm']['count'] > 0){
+    if(entity_info.alarm.count > 0){
         alarm_audio_init();
     }
 }
@@ -85,30 +85,30 @@ function repo_init(){
     core_repo_init({
       'beforeunload': {
         'todo': function(){
-            if(entity_info['alarm']['count'] <= 0){
-                core_elements['alarms'].value = '{}';
+            if(entity_info.alarm.count <= 0){
+                core_elements.alarms.value = '{}';
             }
         }
       },
       'events': {
-        'add-alarm': {
+        'add_alarm': {
           'onclick': function(){
               alarm_create();
           },
         },
-        'date-to-timestamp': {
+        'date_to_timestamp': {
           'onclick': function(){
               update_times(time_from_inputs());
           },
         },
         'now': {
           'onclick': function(){
-              update_times(Number(core_elements['timestamp-current'].value));
+              update_times(Number(core_elements.timestamp_current.value));
           },
         },
-        'timestamp-to-date': {
+        'timestamp_to_date': {
           'onclick': function(){
-              update_times(Number(core_elements['timestamp'].value));
+              update_times(Number(core_elements.timestamp.value));
           },
         },
         'timezone': {
@@ -121,16 +121,16 @@ function repo_init(){
       },
       'storage': {
         'alarms': '{}',
-        'alarm-frequency': 666,
+        'alarm_frequency': 666,
         'timezone': 0,
       },
       'storage-menu': '<textarea id=alarms></textarea><br>'
-        + '<table><tr><td><input class=mini id=alarm-frequency step=any type=number><td>Alarm Frequency</table>',
+        + '<table><tr><td><input class=mini id=alarm_frequency step=any type=number><td>Alarm Frequency</table>',
       'title': 'Time.htm',
       'ui-elements': [
-        'alarm-label',
-        'alarm-seconds',
-        'alarms-table',
+        'alarm_label',
+        'alarm_seconds',
+        'alarms_table',
       ],
     });
     entity_set({
@@ -138,27 +138,27 @@ function repo_init(){
       'type': 'alarm',
     });
 
-    const alarms = JSON.parse(core_storage_data['alarms']);
+    const alarms = JSON.parse(core_storage_data.alarms);
     for(const alarm in alarms){
         alarm_create({
-          'label': alarms[alarm]['label'],
+          'label': alarms[alarm].label,
           'remake': true,
-          'target': alarms[alarm]['target'],
+          'target': alarms[alarm].target,
         });
     }
     let calendar = '';
     for(let week = 0; week < 6; week++){
         calendar += '<tr>';
         for(let day = 0; day < 7; day++){
-            calendar += '<td id=calendar-' + ((week * 7) + day) + '>';
+            calendar += '<td id=calendar_' + ((week * 7) + day) + '>';
         }
     }
     document.getElementById('calendar').innerHTML = calendar;
     for(let day = 0; day < 42; day++){
-        core_elements['calendar-' + day] = document.getElementById('calendar-' + day);
+        core_elements['calendar_' + day] = document.getElementById('calendar_' + day);
     }
 
-    update_times(timestamp_to_date()['timestamp']);
+    update_times(timestamp_to_date().timestamp);
     core_interval_modify({
       'id': 'time',
       'interval': 1000,
@@ -169,9 +169,9 @@ function repo_init(){
 
 function update(){
     const time = new Date().getTime();
-    const timezone = globalThis.isNaN(core_storage_data['timezone'])
+    const timezone = globalThis.isNaN(core_storage_data.timezone)
       ? 0
-      : Number(core_storage_data['timezone']) * 3600000;
+      : Number(core_storage_data.timezone) * 3600000;
 
     const timestamp = timestamp_to_date(time + timezone);
     const date_display = time_format({
@@ -179,27 +179,27 @@ function update(){
     });
     document.title = date_display;
 
-    const diff = timestamp['timestamp'] - core_elements['timestamp'].value;
+    const diff = timestamp.timestamp - core_elements.timestamp.value;
 
     core_ui_update({
       'ids': {
-        'date-display': date_display,
+        'date_display': date_display,
         'diff': time_diff({
-          'target': core_elements['timestamp'].value,
+          'target': core_elements.timestamp.value,
         }),
-        'diff-days': core_number_format({
+        'diff_days': core_number_format({
           'number': -diff / 86400000,
         }),
-        'diff-months': core_number_format({
+        'diff_months': core_number_format({
           'number': -diff / 2592000000,
         }),
-        'diff-weeks': core_number_format({
+        'diff_weeks': core_number_format({
           'number': -diff / 604800000,
         }),
-        'diff-years': core_number_format({
+        'diff_years': core_number_format({
           'number': -diff / 31556908800,
         }),
-        'timestamp-current': timestamp['timestamp'],
+        'timestamp_current': timestamp.timestamp,
       },
     });
 
@@ -209,7 +209,7 @@ function update(){
         'alarm',
       ],
       'todo': function(entity){
-          const remaining = (entity_entities[entity]['target'] - date_to_timestamp()) / 1000;
+          const remaining = (entity_entities[entity].target - date_to_timestamp()) / 1000;
 
           core_elements[entity].childNodes[1].textContent = time_diff({
             'target': remaining * 1000 + date_to_timestamp(),
@@ -233,9 +233,9 @@ function update(){
 function update_times(timestamp){
     const date = timestamp_to_date(timestamp);
     const calendar = {};
-    const month_end = new Date(date['year'], date['month'], 0).getDate();
-    const month_start = new Date(date['year'] + '-' + date['month'] + '-01').getDay() - 1;
-    const previous_end = new Date(date['year'], date['month'] === 0 ? 11 : date['month'] - 1, 0).getDate();
+    const month_end = new Date(date.year, date.month, 0).getDate();
+    const month_start = new Date(date.year + '-' + date.month + '-01').getDay() - 1;
+    const previous_end = new Date(date.year, date.month === 0 ? 11 : date.month - 1, 0).getDate();
     for(let day = 0; day < 42; day++){
         let value = '';
         let style = '#000';
@@ -247,7 +247,7 @@ function update_times(timestamp){
             if(adjusted > month_end){
                 value = adjusted - month_end;
 
-            }else if(adjusted === date['date']){
+            }else if(adjusted === date.date){
                 style = '#333';
                 value = '[' + adjusted + ']';
 
@@ -256,32 +256,32 @@ function update_times(timestamp){
                 value = adjusted;
             }
         }
-        core_elements['calendar-' + day].style.backgroundColor = style;
-        calendar['calendar-' + day] = value;
+        core_elements['calendar_' + day].style.backgroundColor = style;
+        calendar['calendar_' + day] = value;
     }
     core_ui_update({
       'ids': {
         'date': core_digits_min({
-          'number': date['date'],
+          'number': date.date,
         }),
         'hour': core_digits_min({
-          'number': date['hour'],
+          'number': date.hour,
         }),
-        'leap': date['year'] + ' is ' + (((date['year'] & 3) === 0 && (date['year'] % 25 !== 0 || (date['year'] & 15) === 0))
+        'leap': date.year + ' is ' + (((date.year & 3) === 0 && (date.year % 25 !== 0 || (date.year & 15) === 0))
           ? ''
           : 'NOT'),
         'minute': core_digits_min({
-          'number': date['minute'],
+          'number': date.minute,
         }),
         'month': core_digits_min({
-          'number': date['month'],
+          'number': date.month,
         }),
         'second': core_digits_min({
-          'number': date['second'],
+          'number': date.second,
         }),
         'timestamp': timestamp,
-        'timestamp-seconds': Math.floor(timestamp / 1000),
-        'year': date['year'],
+        'timestamp_seconds': Math.floor(timestamp / 1000),
+        'year': date.year,
         ...calendar,
       },
     });
