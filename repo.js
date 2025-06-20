@@ -127,7 +127,7 @@ function repo_init(){
       'storage-menu': '<textarea id=alarms></textarea><br>'
         + '<table><tr><td><input class=mini id=alarm_frequency step=any type=number><td>Alarm Frequency</table>',
       'title': 'Time.htm',
-      'ui-elements': [
+      'ui_elements': [
         'alarm_label',
         'alarm_seconds',
         'alarms_table',
