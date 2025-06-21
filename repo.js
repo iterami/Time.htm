@@ -124,7 +124,7 @@ function repo_init(){
         'alarm_frequency': 666,
         'timezone': 0,
       },
-      'storage-menu': '<textarea id=alarms></textarea><br>'
+      'storage_menu': '<textarea id=alarms></textarea><br>'
         + '<table><tr><td><input class=mini id=alarm_frequency step=any type=number><td>Alarm Frequency</table>',
       'title': 'Time.htm',
       'ui_elements': [
