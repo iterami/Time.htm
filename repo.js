@@ -233,9 +233,13 @@ function update(){
 function update_times(timestamp){
     const date = timestamp_to_date(timestamp);
     const calendar = {};
+    const month = date.month === 0 ? 11 : date.month - 1;
     const month_end = new Date(date.year, date.month, 0).getDate();
-    const month_start = new Date(date.year + '-' + date.month + '-01').getDay() - 1;
-    const previous_end = new Date(date.year, date.month === 0 ? 11 : date.month - 1, 0).getDate();
+    const month_start_day = new Date(date.year, month, 1).getDay();
+    const month_start = month_start_day === 0
+      ? 6
+      : month_start_day - 1;
+    const previous_end = new Date(date.year, month, 0).getDate();
     for(let day = 0; day < 42; day++){
         let value = '';
         let style = '#000';
