@@ -280,6 +280,7 @@ function update_times(timestamp){
         'month': core_digits_min({
           'number': date.month,
         }),
+        'month_name': ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december',][date.month],
         'second': core_digits_min({
           'number': date.second,
         }),
