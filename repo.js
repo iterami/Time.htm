@@ -148,7 +148,7 @@ function repo_init(){
     }
     let calendar = '';
     for(let week = 0; week < 6; week++){
-        calendar += '<tr>';
+        calendar += '<tr><td id=week_' + week + '>';
         for(let day = 0; day < 7; day++){
             calendar += '<td id=calendar_' + ((week * 7) + day) + '>';
         }
@@ -240,6 +240,8 @@ function update_times(timestamp){
       ? 6
       : month_start_day - 1;
     const previous_end = new Date(date.year, month, 0).getDate();
+    const year = new Date(date.year, 0, 1);
+    const week = Math.ceil((((new Date(date.year, date.month - 1, 1) - year) / 86400000) + year.getDay() + 1) / 7);
     for(let day = 0; day < 42; day++){
         let value = '';
         let style = '#000';
@@ -288,6 +290,16 @@ function update_times(timestamp){
         'timestamp_seconds': Math.floor(timestamp / 1000),
         'year': date.year,
         ...calendar,
+        'week_0': week,
+        'week_1': week + 1,
+        'week_2': week + 2,
+        'week_3': week + 3,
+        'week_4': week > 48
+          ? 1
+          : week + 4,
+        'week_5': week > 48
+          ? 2
+          : week + 5,
       },
     });
 }
