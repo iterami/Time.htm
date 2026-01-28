@@ -210,16 +210,16 @@ function update(){
         'alarm',
       ],
       'todo': function(entity){
-          const remaining = (entity_entities[entity].target - date_to_timestamp()) / 1000;
+          const element = core_elements[entity.id];
+          const remaining = (entity.target - date_to_timestamp()) / 1000;
 
-          core_elements[entity].childNodes[1].textContent = time_diff({
+          element.childNodes[1].textContent = time_diff({
             'target': remaining * 1000 + date_to_timestamp(),
           });
-
           if(remaining < 0){
-              core_elements[entity].style.backgroundColor = '#f00';
+              element.style.backgroundColor = '#f00';
 
-              if(core_elements[entity].childNodes[3].childNodes[0].checked){
+              if(element.childNodes[3].childNodes[0].checked){
                   play_alarm_sound = true;
               }
           }
