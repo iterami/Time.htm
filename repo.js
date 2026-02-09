@@ -162,8 +162,7 @@ function repo_init(){
     update_times(timestamp_to_date().timestamp);
     core_interval_modify({
       'id': 'time',
-      'interval': 1000,
-      'sync': true,
+      'interval': -2,
       'todo': update,
     });
 }
