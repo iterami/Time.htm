@@ -208,25 +208,27 @@ function update(){
       'groups': [
         'alarm',
       ],
-      'todo': function(entity){
-          const element = core_elements[entity.id];
-          const remaining = (entity.target - date_to_timestamp()) / 1000;
-
-          element.childNodes[1].textContent = time_diff({
-            'target': remaining * 1000 + date_to_timestamp(),
-          });
-          if(remaining < 0){
-              element.style.backgroundColor = '#f00';
-
-              if(element.childNodes[3].childNodes[0].checked){
-                  play_alarm_sound = true;
-              }
-          }
-      },
+      'todo': update_alarm,
     });
 
     if(play_alarm_sound){
         audio_start('alarm');
+    }
+}
+
+function update_alarm(entity){
+    const element = core_elements[entity.id];
+    const remaining = (entity.target - date_to_timestamp()) / 1000;
+
+    element.childNodes[1].textContent = time_diff({
+      'target': remaining * 1000 + date_to_timestamp(),
+    });
+    if(remaining < 0){
+        element.style.backgroundColor = '#f00';
+
+        if(element.childNodes[3].childNodes[0].checked){
+            play_alarm_sound = true;
+        }
     }
 }
 
