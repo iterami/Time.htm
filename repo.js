@@ -3,7 +3,7 @@
 function alarm_audio_init(){
     audio_create({
       'alarm': {
-        'duration': .5,
+        'duration': 1,
         'frequency': core_storage_data.alarm_frequency,
       },
     });
@@ -30,26 +30,21 @@ function alarm_clear(event){
     core_storage_update();
 }
 
-function alarm_create(args){
-    args = core_args({
-      'args': args,
-      'defaults': {
-        'label': core_elements.alarm_label.value,
-        'remake': false,
-        'target': date_to_timestamp() + Number.parseInt(core_elements.alarm_seconds.value, 10) * 1000,
-      },
-    });
-
-    if(!args.remake
-      && JSON.parse(core_storage_data.alarms)[args.label]){
+function alarm_create({
+  label = core_elements.alarm_label.value,
+  remake = false,
+  target = date_to_timestamp() + Number.parseInt(core_elements.alarm_seconds.value, 10) * 1000,
+} = {}){
+    if(!remake
+      && JSON.parse(core_storage_data.alarms)[label]){
         return;
     }
 
     entity_create({
-      'id': args.label,
+      'id': label,
       'properties': {
-        'label': args.label,
-        'target': args.target,
+        'label': label,
+        'target': target,
       },
       'types': [
         'alarm',
@@ -58,19 +53,20 @@ function alarm_create(args){
 
     core_elements.alarms_table.insertAdjacentHTML(
       'beforeend',
-      '<tr id="' + args.label + '">'
-        + '<td>' + args.label
+      '<tr id="' + label + '">'
+        + '<td>' + label
         + '<td>'
         + '<td>' + time_format({
-          'date': timestamp_to_date(entity_entities[args.label].target),
+          'date': timestamp_to_date(entity_entities[label].target),
         })
-        + '<td><input checked type=checkbox><button id="' + args.label + '-button" type=button>X</button>'
+        + '<td><input checked type=checkbox><button id="' + label + '-button" type=button>X</button>'
     );
-    document.getElementById(args.label + '-button').onclick = alarm_clear;
-    core_elements[args.label] = document.getElementById(args.label);
+    document.getElementById(label + '-button').onclick = alarm_clear;
+    core_elements[label] = document.getElementById(label);
 
     core_storage_data.alarms = JSON.stringify(entity_entities);
     core_storage_update();
+    core_storage_save(['alarms']);
 
     alarm_audio_init();
 }
@@ -120,6 +116,9 @@ function repo_init(){
           },
         },
       },
+      'globals': {
+        'play_alarm_sound': false,
+      },
       'storage': {
         'alarms': '{}',
         'alarm_frequency': 666,
@@ -135,7 +134,7 @@ function repo_init(){
       ],
     });
     entity_set({
-      'default': true,
+      'defaults': true,
       'type': 'alarm',
     });
 
@@ -203,14 +202,13 @@ function update(){
       },
     });
 
-    let play_alarm_sound = false;
+    play_alarm_sound = false;
     entity_group_modify({
       'groups': [
         'alarm',
       ],
       'todo': update_alarm,
     });
-
     if(play_alarm_sound){
         audio_start('alarm');
     }
