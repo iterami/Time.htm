@@ -72,6 +72,8 @@ function alarm_create({
 }
 
 function repo_escape(){
+    audio_state_all(!core_menu_open);
+
     if(entity_info.alarm.count > 0){
         alarm_audio_init();
     }
