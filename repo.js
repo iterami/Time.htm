@@ -291,7 +291,7 @@ function update_times(timestamp){
         'timestamp': timestamp,
         'timestamp_seconds': Math.floor(timestamp / 1000),
         'year': date.year,
-        'yearday': (new Date(date.year, date.month - 1, date.date) - year) / 86400000 + 1,
+        'yearday': Math.floor((new Date(date.year, date.month - 1, date.date) - year) / 86400000 + 1),
         ...calendar,
         'week_0': week,
         'week_1': week + 1,
