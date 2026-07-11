@@ -20,9 +20,7 @@ function alarm_clear(event){
     );
 
     entity_remove({
-      'entities': [
-        alarm,
-      ],
+      'entities': [alarm],
     });
     delete core_elements[alarm];
 
@@ -46,9 +44,7 @@ function alarm_create({
         'label': label,
         'target': target,
       },
-      'types': [
-        'alarm',
-      ],
+      'types': ['alarm'],
     });
 
     core_elements.alarms_table.insertAdjacentHTML(
@@ -206,9 +202,7 @@ function update(){
 
     play_alarm_sound = false;
     entity_group_modify({
-      'groups': [
-        'alarm',
-      ],
+      'groups': ['alarm'],
       'todo': update_alarm,
     });
     if(play_alarm_sound){
@@ -284,7 +278,7 @@ function update_times(timestamp){
         'month': core_digits_min({
           'number': date.month,
         }),
-        'month_name': ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december',][date.month - 1],
+        'month_name': ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'][date.month - 1],
         'second': core_digits_min({
           'number': date.second,
         }),
