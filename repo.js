@@ -77,12 +77,10 @@ function repo_escape(){
 
 function repo_init(){
     core_repo_init({
-      'beforeunload': {
-        'todo': function(){
-            if(entity_info.alarm.count <= 0){
-                core_elements.alarms.value = '{}';
-            }
-        }
+      'beforeunload': function(){
+          if(entity_info.alarm.count <= 0){
+              core_elements.alarms.value = '{}';
+          }
       },
       'events': {
         'add_alarm': {
