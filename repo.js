@@ -62,7 +62,10 @@ function alarm_create({
 
     core_storage_data.alarms = JSON.stringify(entity_entities);
     core_storage_update();
-    core_storage_save(['alarms']);
+    core_storage_save({
+      'keys': ['alarms'],
+      'rebind': false,
+    });
 
     alarm_audio_init();
 }
