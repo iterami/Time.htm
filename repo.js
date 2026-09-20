@@ -9,29 +9,10 @@ function alarm_audio_init(){
     });
 }
 
-function alarm_clear(event){
-    const alarm = event.target.id.split('-')[0];
-    if(!globalThis.confirm('Remove "' + alarm + '"?')){
-        return;
-    }
-
-    core_elements.alarms_table.removeChild(
-      event.target.parentElement.parentElement
-    );
-
-    entity_remove({
-      'entities': [alarm],
-    });
-    delete core_elements[alarm];
-
-    core_storage_data.alarms = JSON.stringify(entity_entities);
-    core_storage_update();
-}
-
 function alarm_create({
   label = core_elements.alarm_label.value,
   remake = false,
-  target = date_to_timestamp() + Number.parseInt(core_elements.alarm_seconds.value, 10) * 1000,
+  target = date_to_timestamp() + core_elements.alarm_seconds.value * 1000,
 } = {}){
     if(!remake
       && JSON.parse(core_storage_data.alarms)[label]){
@@ -57,17 +38,38 @@ function alarm_create({
         })
         + '<td><input checked type=checkbox><button id="' + label + '-button" type=button>X</button>'
     );
-    document.getElementById(label + '-button').onclick = alarm_clear;
+    document.getElementById(label + '-button').onclick = alarm_remove;
     core_elements[label] = document.getElementById(label);
 
+    alarm_save();
+    alarm_audio_init();
+}
+
+function alarm_remove(event){
+    const alarm = event.target.id.split('-')[0];
+    if(!globalThis.confirm('Remove "' + alarm + '"?')){
+        return;
+    }
+
+    core_elements.alarms_table.removeChild(
+      event.target.parentElement.parentElement
+    );
+
+    entity_remove({
+      'entities': [alarm],
+    });
+    delete core_elements[alarm];
+
+    alarm_save();
+}
+
+function alarm_save(){
     core_storage_data.alarms = JSON.stringify(entity_entities);
     core_storage_update();
     core_storage_save({
       'keys': ['alarms'],
       'rebind': false,
     });
-
-    alarm_audio_init();
 }
 
 function repo_escape(){
